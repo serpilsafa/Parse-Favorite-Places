@@ -10,6 +10,33 @@ public class PinArea {
     String areaLatitude;
     String areaLongitude;
     Bitmap areaImage;
+    String id;
+
+    public PinArea(String areaName, String areaType, String areaAtmosphere, String areaLatitude, String areaLongitude, Bitmap areaImage, String id) {
+        this.areaName = areaName;
+        this.areaType = areaType;
+        this.areaAtmosphere = areaAtmosphere;
+        this.areaLatitude = areaLatitude;
+        this.areaLongitude = areaLongitude;
+        this.areaImage = areaImage;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public static PinArea getPinArea() {
+        return pinArea;
+    }
+
+    public static void setPinArea(PinArea pinArea) {
+        PinArea.pinArea = pinArea;
+    }
 
     private static PinArea pinArea;
 

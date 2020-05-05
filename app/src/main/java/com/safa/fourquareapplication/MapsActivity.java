@@ -32,7 +32,6 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 import com.safa.fourquareapplication.model.PinArea;
-import com.safa.fourquareapplication.view.AddPinActivity;
 import com.safa.fourquareapplication.view.ListPinActivity;
 
 import java.io.ByteArrayOutputStream;
@@ -186,6 +185,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }else{
                     Intent intent = new Intent(getApplicationContext(), ListPinActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

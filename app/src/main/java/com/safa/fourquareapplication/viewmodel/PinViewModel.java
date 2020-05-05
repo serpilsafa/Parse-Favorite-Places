@@ -3,7 +3,9 @@ package com.safa.fourquareapplication.viewmodel;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -22,15 +24,14 @@ import java.util.List;
 
 public class PinViewModel extends ViewModel {
     private MutableLiveData<List<PinArea>> pinList;
-    private MutableLiveData<Boolean> progressBar;
+    private MutableLiveData<Boolean> progressBar = new MutableLiveData<Boolean>();
 
     public LiveData<List<PinArea>> getPinList(){
         if (pinList == null){
             pinList = new MutableLiveData<List<PinArea>>();
-            progressBar = new MutableLiveData<Boolean>();
 
-            loadPins();
         }
+        loadPins();
         return pinList;
     }
 
@@ -39,45 +40,39 @@ public class PinViewModel extends ViewModel {
     }
 
     private void loadPins(){
-        /*
-        ArrayList<PinArea> pinListX = new ArrayList<PinArea>();
-        pinListX.add(new PinArea("test","test", "test","test", "test","test"));
-        pinList.setValue(pinListX);
 
-         */
-
-
+        final ArrayList<PinArea> pinArea  = new ArrayList<PinArea>();
         ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Pins");
+       // parseQuery.orderByAscending("createAt");
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void done(final List<ParseObject> objects, ParseException e) {
                 if (e == null){
-                    final ArrayList<PinArea> pinArea  = new ArrayList<PinArea>();
+                    final int[] i = {0};
                     for (final ParseObject o : objects){
-
-                        final PinArea pin = PinArea.instance();
-
                         ParseFile parseFile = (ParseFile) o.get("areaImage");
+
                         if(parseFile != null){
                             parseFile.getDataInBackground(new GetDataCallback() {
                                 @Override
                                 public void done(byte[] data, ParseException e) {
                                     if (e == null && data != null){
                                         Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                        pin.setAreaImage(bitmap);
 
-                                        pin.setAreaName(o.getString("areaName"));
-                                        pin.setAreaType(o.getString("areaType"));
-                                        pin.setAreaAtmosphere(o.getString("areaAtmosphere"));
-                                        pin.setAreaLatitude(o.getString("areaLatitude"));
-                                        pin.setAreaLongitude(o.getString("areaLongitude"));
-                                        // pin.setAreaImage(o.getString("areaName"));
+                                        String id = o.getObjectId();
+                                        String name = o.getString("areaName");
+                                        String type =o.getString("areaType");
+                                        String atmosphere = o.getString("areaAtmosphere");
+                                        String latitude = o.getString("areaLatitude");
+                                        String longitude = o.getString("areaLongitude");
 
-                                        pinArea.add(pin);
+                                        pinArea.add(new PinArea(name,type,atmosphere,latitude,longitude,bitmap,id));
 
                                         pinList.setValue(pinArea);
                                         progressBar.setValue(true);
+
                                     }
+
                                 }
                             });
                         }
@@ -85,9 +80,14 @@ public class PinViewModel extends ViewModel {
                     }
 
                 }
+
             }
         });
 
 
+
+
     }
+
+
 }

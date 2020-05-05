@@ -12,13 +12,19 @@
         android:id="@+id/pinAreaImageView"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        app:srcCompat="@android:drawable/btn_star_big_on"
-        android:onClick="onChooseImage"/>
+        android:layout_marginBottom="20dp"
+        android:background="#EDEDEC"
+        android:onClick="onChooseImage"
+        android:padding="10dp"
+        app:srcCompat="@drawable/onselectpicture" />
 
     <EditText
         android:id="@+id/areaName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         android:ems="10"
         android:hint="Area Name"
         android:inputType="textPersonName" />
@@ -27,6 +33,9 @@
         android:id="@+id/areaType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         android:ems="10"
         android:hint="Area Type"
         android:inputType="textPersonName" />
@@ -35,6 +44,9 @@
         android:id="@+id/areaAtmosphere"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="Area Atmosphere"
         android:inputType="textPersonName" />
@@ -43,7 +55,9 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="#FFEB3B"
-        android:text="Add Pin"
-        android:onClick="onAddPin"/>
+        android:onClick="onAddPin"
+        android:text="Add Pin" />
 </LinearLayout>

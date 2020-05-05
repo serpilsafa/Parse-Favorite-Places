@@ -2,6 +2,8 @@ package com.safa.fourquareapplication.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.parse.LogOutCallback;
@@ -22,6 +26,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.safa.fourquareapplication.R;
 import com.safa.fourquareapplication.adapter.PinListRecycleViewAdapter;
+import com.safa.fourquareapplication.databinding.ActivityListPinBinding;
 import com.safa.fourquareapplication.model.PinArea;
 import com.safa.fourquareapplication.viewmodel.PinViewModel;
 
@@ -36,19 +41,23 @@ public class ListPinActivity extends AppCompatActivity {
     private ArrayList<PinArea> pinAreaArrayList;
     private ProgressBar progressBar;
 
+    private ActivityListPinBinding listPinBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_pin);
+       // setContentView(R.layout.activity_list_pin);
+        listPinBinding = DataBindingUtil.setContentView(this, R.layout.activity_list_pin);
 
         model = new ViewModelProvider(this).get(PinViewModel.class);
         pinAreaArrayList = new ArrayList<PinArea>();
 
         progressBar = findViewById(R.id.progress_circular);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PinListRecycleViewAdapter(pinAreaArrayList);
-        recyclerView.setAdapter(adapter);
+       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PinListRecycleViewAdapter(pinAreaArrayList, this);
+       // recyclerView.setAdapter(adapter);
+        listPinBinding.setAdapter(adapter);
         recyclerView.setVisibility(View.GONE);
 
         dataChanged();
@@ -110,4 +119,6 @@ public class ListPinActivity extends AppCompatActivity {
         finish();
 
     }
+
+
 }

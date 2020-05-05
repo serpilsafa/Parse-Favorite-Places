@@ -7,12 +7,16 @@
         <variable
             name="pin"
             type="com.safa.fourquareapplication.model.PinArea" />
+        <variable
+            name="onClickListener"
+            type="com.safa.fourquareapplication.adapter.OnRecyclerViewClickListener" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{() -> onClickListener.onclick(pin)}">
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,6 +30,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="3dp"
+                android:bitmap="@{pin.areaImage}"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
             <TextView
